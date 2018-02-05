@@ -1,0 +1,57 @@
+.m_header{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 14px 10px 14px;
+	background: #1890ff;
+}
+.m_header img{
+	width: 30px;
+}
+.m_header .h_right div{
+	color: #fff;
+	font-size: 16px;
+}
+.m_header .h_right a{
+	color: #fff;
+	font-size: 16px;
+}
+.m_header .h_right .anticon{
+	margin-left: 6px;
+	font-size: 18px;
+}
+.m_header .h_right{
+	color: #fff;
+}
+.m_header .h_left .anticon-arrow-left{
+	color:#fff;
+	font-size: 20px;
+	padding: 0 10px 0 2px;
+}
+.m_header .h_middle{
+ 	color:#fff;
+	font-size: 18px;
+	width: 100%;
+	text-align: center;
+}
+.login-form-button {
+  width: 100%;
+}
+.modal .ant-modal-body {
+	min-height: 360px;
+}
+.modal .ant-modal-footer{
+	display: none;
+}
+.ant-card .ant-card-body{
+	padding: 10px 12px;
+}
+.ant-card .ant-card-head-title{
+	padding: 12px 0;
+}
+.ant-carousel img{
+	width: 100%;
+}
+.user_box {
+	padding: 20px 40px;
+}

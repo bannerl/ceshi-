@@ -1,0 +1,103 @@
+html {
+    font-size: 100px;
+}
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    content: ".";
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear: both;
+    overflow:hidden;
+}
+
+.float-left {
+    float: left
+}
+
+.float-right {
+    float: right
+}
+
+.ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.inline{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+
+.border-1px{
+    position: relative;
+    &:after{
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 0;
+        border-bottom: 1px solid #ddd;
+        transform: scaleY(.5);
+        content: '.';
+         @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3){
+            transform: scaleY(.3);
+        }
+    }    
+}
+
+.border-1px-top{
+    position: relative;
+    &:before{
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        font-size: 0;
+        border-top: 1px solid #ddd;
+        transform: scaleY(.5);
+        content: '.';
+        @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3){
+            transform: scaleY(.3);
+        }
+    }    
+}
+.border-1px-right{
+    position:relative;
+    &:after{
+        position:absolute;
+        height: 100%;
+        right: 0;
+        top: 0;
+        border-right: 1px solid #ddd;
+        transform: scaleX(.5);
+        content: '';
+        @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3){
+            transform: scaleX(.3);
+        }
+    }
+}
+.border-1px-left{
+    position:relative;
+    &:after{
+        position:absolute;
+        height: 100%;
+        left: 0;
+        top: 0;
+        border-left: 1px solid #ddd;
+        transform: scaleX(.5);
+        content: '';
+        @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3){
+            transform: scaleX(.3);
+        }
+    }
+}
+

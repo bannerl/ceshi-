@@ -1,0 +1,27 @@
+.article-wrapper{
+    h1{
+        padding: 20px 0;
+        text-align: center;
+    }
+    .article-src-time{
+        text-align: right;
+        color: #777;
+        margin-right: 20px;
+    }
+    .section.img{
+        width: 100%;
+        margin: 20px 0;
+        img{
+            display: block;
+            max-width: 600px;
+            min-width: 200px;
+            margin: 0 auto;
+        }
+    }
+    .section.txt{
+        padding:6px 30px;
+        font-size: 15px;
+        color: #333;
+        font-family: "微软雅黑";
+    }
+}

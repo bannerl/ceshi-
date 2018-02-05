@@ -1,0 +1,21 @@
+.welcome-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    height: 2rem;
+    width: 80%;
+    transform: translate3d(-50%,-50%,0);
+    text-align: center;
+    .welcome-text {
+        font-size: .3rem;
+        word-spacing: 0.04rem;
+        color: #333;
+    }
+    .welcome-into {
+        margin-top: .3rem;
+        
+    }
+}
