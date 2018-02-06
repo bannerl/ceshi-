@@ -1,74 +1,70 @@
 <?php 
 
-	//phpQuery
 	header("Content-Type:text/html;charset=utf-8;");
 	//引入phpQuery
 	require("phpQuery/phpQuery.php");
-	//百度搜索结果
-	$source;
-	if($_SERVER["REQUEST_METHOD"] == "GET"){
-		if(!empty($_GET["title"])){
-			$url = "http://www.baidu.com/s?wd=".$_GET["title"];
-			$source = $_GET["number"];
-		}else{
-			echo "没有获取到小说名";
-			exit;
-		}
-		if(!empty($_GET['number'])){
-			$source = $_GET["number"];
-		}
-	}
-	error_reporting(E_ALL^E_NOTICE^E_WARNING);
-	//exit();
-	//$url = "http://www.baidu.com/s?wd=尊上";
-	$fileContent = file_get_contents($url);
-	$doc = phpQuery::newDocumentHTML($fileContent);
-	//保存所有章节网址的数组
-	$arr = array();
-	$i = 0;
-	//根据百度搜索结果确定.f13下的a链接为所需链接
-	foreach(pq(".f13 a") as $key=>$value){
-		//获取当前链接
-		$baiduUrl = $value->getAttribute("href");
-		//判断链接中是否存在"/link"
-		$num = strpos($baiduUrl,"/link");
-		if($num>0){
-			//判断当前网页中是否存在dd标签且长度进行要求	
-			//$saddress = file_get_contents($baiduUrl);
-			//$scontent = phpQuery::newDocumentHTML($saddress);
-			//$dd = pq("dt")->nextAll("dd");
-			//if(strlen($dd)>10000){
-				$arr[$i] = $baiduUrl;
-				$i++;
-			//}
-		}
-	}
+	echo "<pre>";
+	//筛选网址
+	$filterUrlArr = ['xxbiquge.com','biqugex.com'];
+	//搜索参数设置
+	$search = "http://www.baidu.com/s?q=&ct=2097152&rn=1&cl=3&wd=";
+	
+	//是否传入小说名称	
+//	if($_SERVER["REQUEST_METHOD"] == "GET"){
+//		if(empty($_GET["title"])){
+//			echo '没有输入小说名称';
+//			//exit;
+//		}
+//	}
+//	
+//	//$url = "http://www.baidu.com/s?wd=尊上";
+//	$kd="尊上";
+//	$contentArr = [];
+//	$i = 0;
+//	foreach ($filterUrlArr as $key => $value) {
+//		$url = $search.$kd."&si=".$value;
+//		$fileContent = file_get_contents($url);
+//		$doc = phpQuery::newDocumentHTML($fileContent);
+//		
+//		//判断是否有搜索结果
+//		$noData = pq('.content_none')->html();
+//		if(!strlen($noData)){
+//			$resultUrl = '';
+//			foreach(pq(".f13 a") as $key1=>$value1){
+//				//获取当前链接
+//				$baiduUrl = $value1->getAttribute("href");
+//				//描述
+//				$desc = $kd."最新章节由网友提供";
+//				
+//				//判断链接中是否存在"/link"
+//				$num = strpos($baiduUrl,"/link");
+//				if($num>0){
+//					$resultUrl = $baiduUrl;
+//					$contentArr[$i]['url'] = $resultUrl;
+//					$contentArr[$i]['host'] = $value;
+//					$contentArr[$i]['desc'] = $desc;
+//					$i++;
+//				}
+//			}
+//		}
+//	}
+	
 ?>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="style/public.css" />
-		<link href="//at.alicdn.com/t/font_ah1h288zi42njyvi.css" />
-		<link rel="stylesheet" type="text/css" href="style/main.css"/>
-	</head>
-	<body>
-		<div id="contianer">
-			<div id="box">
-				<?php 
-					function receiveUrl($arr) {
-						$arrurl = $arr[$_GET["number"]];
-						$saddress = file_get_contents($arrurl);
+<?php 
+					function receiveUrl() {
+						$arrurl = 'http://www.baidu.com/link?url=S1mBay0qmv0JU7Hf8XrGie4ZkpcpBAHDke9b4MiT8P5LMkHJiUKJbcUgzJbuJwtw';
+						$storyIndex = file_get_contents($arrurl);
+						
 						//获取百度加密前的网址
 						$href;
 						$arr1 = array();
-						$arr1[0] = $arrurl;
-						foreach ($arr1 as $url) {
-						    stream_context_set_default(array('http' => array('method' => 'HEAD')));
-						    $headers = get_headers(trim($url), 1);
-						    $href = $headers['Location'];
-						}
+					
+					    stream_context_set_default(array('http' => array('method' => 'HEAD')));
+					    $headers = get_headers(trim($arrurl), 1);
+					    $href = $headers['Location'];
 						
-						$scontent = phpQuery::newDocumentHTML($saddress);
+						$content = phpQuery::newDocumentHTML($storyIndex);
+						
 						$type = pq("meta[http-equiv=Content-Type]")->attr("content");
 						$mode = 0;
 						if(strpos($type, "8")){
@@ -79,6 +75,7 @@
 						//章节链接重复处理措施
 						$arrz =  array();
 						$i = 0;
+						
 						if(strlen(pq("dt:eq(1)")->html())>1){
 							$dd = pq("dt:eq(1)")->nextAll("dd");
 						}else{
@@ -108,18 +105,31 @@
 							$i++;
 						}
 						//打印目录
-						$j = 0;
-						echo "<div id=\"mode\">".$mode."</div>";
-						echo '<p>直达底部</p><div class="group">';
-						foreach ($arrz as $key => $value) {
-							echo "<dd><span index=".($mode)." name='".$value["href"]."' onclick=\"addcontent('".$value["href"]."','".$value["text"]."','".($j+1)."')\" >".$value["text"]."</span></dd>";
-							$j++;
-						}
-						echo '</div>';
+						//$j = 0;
+						
+						echo json_encode($arrz);
+//						echo "<div id=\"mode\">".$mode."</div>";
+//						echo '<p>直达底部</p><div class="group">';
+//						foreach ($arrz as $key => $value) {
+//							echo "<dd><span index=".($mode)." name='".$value["href"]."' onclick=\"addcontent('".$value["href"]."','".$value["text"]."','".($j+1)."')\" >".$value["text"]."</span></dd>";
+//							$j++;
+//						}
+//						echo '</div>';
 						
 					}
-			   		receiveUrl($arr);
+			   		receiveUrl();
 				?>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="style/public.css" />
+		<link href="//at.alicdn.com/t/font_ah1h288zi42njyvi.css" />
+		<link rel="stylesheet" type="text/css" href="style/main.css"/>
+	</head>
+	<body>
+		<div id="contianer">
+			<div id="box">
+				
 				<script>
 				setTimeout(function(){
 					addcontent($("dd span").eq(0).attr("name"),$("dd span").eq(0).text());

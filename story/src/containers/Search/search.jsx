@@ -1,6 +1,11 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { NavBar,SearchBar, Button ,Icon } from 'antd-mobile';
+import { NavBar,SearchBar, Button ,Icon,List } from 'antd-mobile';
+import { getSearchResult } from '../../fetch/search/search'; 
+import { HashHistory } from 'react-router';
+
+const Item = List.Item;
+const Brief = Item.Brief;
 
 class Search extends React.Component {
 	constructor (props,context) {
@@ -8,6 +13,7 @@ class Search extends React.Component {
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 		this.state = {
 		    value: '',
+		    data:[]
 		};
 	}
 	
@@ -17,15 +23,35 @@ class Search extends React.Component {
 	onChange(value) {
 	    this.setState({ value });
 	};
-	handleClick() {
-	    this.manualFocusInst.focus();
-	}
 	
 	search() {
-		console.log(this.state.value)
+		const result = getSearchResult(this.state.value);
+		
+		result.then((res) => {
+			return res.json();
+		}).then((json) => {
+			this.setState({
+				data:json
+			})
+		});
+	}
+	
+	clickHandle(i) {
+		HashHistory.push('');
 	}
 	
 	render () {
+		const result = this.state.data.length
+			?this.state.data.map((item,i) => {
+				return  <Item 
+				arrow="horizontal" 
+				key="{i}"  multipleLine 
+				onClick={this.clickHandle.bind(this,i)}>
+		          网络来源{i+1} 
+		          <Brief>该小说</Brief>
+		        </Item>
+			})
+			:'';
 		return (
 			<div class="search-wrapper">
 				<NavBar
@@ -41,6 +67,14 @@ class Search extends React.Component {
 				    onSubmit={this.search.bind(this)}
 				    onCancel={this.search.bind(this)}
 				    ref={ref => this.autoFocusInst = ref} />
+				{
+					this.state.data.length
+					?<List renderHeader={() => '搜索结果'} className="my-list">
+						{result}
+				    </List> 
+					:''
+				}
+				
 			</div>
 		)
 	}
