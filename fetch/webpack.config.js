@@ -8,7 +8,7 @@ var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 // console.log(process.env.NODE_ENV)
 
 module.exports = {
-    entry: path.resolve(__dirname, 'app/index.jsx'),
+    entry:path.resolve(__dirname, 'app/index.jsx'),
     output: {
         path: __dirname + "/build",
         filename: "bundle.js"
@@ -19,10 +19,7 @@ module.exports = {
     },
 
     module: {
-        // preLoaders: [
-        //     // 报错 ？？？？？
-        //     {test: /\.(js|jsx)$/, loader: "eslint-loader", exclude: /node_modules/}
-        // ],
+        
         loaders: [
             { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.less$/, exclude: /node_modules/, loader: 'style!css!postcss!less' },

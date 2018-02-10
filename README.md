@@ -1,2 +1,0 @@
-# temporaryProject
-## story project
