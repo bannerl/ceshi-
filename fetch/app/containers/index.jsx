@@ -8,7 +8,7 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div>ss
                 {this.props.children}
             </div>
         )

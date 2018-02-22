@@ -40,19 +40,14 @@ export const bsStyles = curry((styles, defaultStyle, Component) => {
   // expose the values on the propType function for documentation
   Component.STYLES = existing;
   propType._values = existing;
-   console.log(propTypes);
-   let a = {a:1,b:2};
-    	let b = [1,2,3];
-      	console.log(...b);
-      	console.log({...a});
-      	let c = {...a};console.log(c) ;
+  
+   
    
   Component.propTypes = 
-  Object.assign({},propTypes,{'bsStyle':propType})
-//{
-//  ...propTypes,
-//  bsStyle: propType
-//};
+{
+    ...propTypes,
+    bsStyle: propType
+};
 
   if (defaultStyle !== undefined) {
     let defaultProps = Component.defaultProps || (Component.defaultProps = {});
