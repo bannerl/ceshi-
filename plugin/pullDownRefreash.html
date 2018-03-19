@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width" />
+		<style type="text/css">
+			body{
+				background: #eee;
+			}
+			.hiddens {
+				position: absolute;
+				width: 100%;
+				box-sizing: border-box;
+				-webkit-transform: translateY(-50px);
+				background: #ddd;
+				color: #444;
+				line-height: 50px;
+				text-align: center;
+			}
+			
+			.container {
+				height: 400px;
+			}
+			.pullDown-refreash {
+				background: #eee;
+				line-height: 40px;
+				height: 40px;
+				color: #777;
+			}
+			.pullDown-loading {
+				height: 18px;
+				width: 18px;
+				margin-right: 4px;
+				display: inline-block;
+				border: 2px solid #999;
+				border-radius: 50%;
+				vertical-align: middle;
+				border-top-color: transparent;
+				-webkit-animation: pullDown-loading .8s linear infinite;
+			}
+			@-webkit-keyframes pullDown-loading{
+				from{
+					-webkit-transform: rotate(0);
+				}
+				to{
+					-webkit-transform: rotate(360deg);
+				}
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="hiddens">
+			<div class="container">内容</div>
+			<div class="container">内容</div>
+			<div class="container">内容</div>
+			<div class="container">内容</div>
+			<div class="container">内容</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.min.js" ></script>
+	<script type="text/javascript">	
+		
+		(function(document,$){
+			//构造函数
+			function PullDownRefreash($elm,fn){
+				this.fn = fn;
+				this.$elm = $elm || $('.pullDownRefreash-wrap');
+				this.animationName = 'pullDownRefreash-loading';
+				this.distanceReach = false; //是否拉到指定位置
+				this.initTop = this.$elm.css('-webkit-transform').split(',')[5].split(')')[0];
+				
+				this.init();
+			}
+			
+			PullDownRefreash.prototype = {
+				constructor: PullDownRefreash,
+				init: function() {
+					var self = this;
+					var touchTop,    // 当前触摸的位置
+						diff,        // 两次触摸之间的差值
+						currentTop,  // 未触摸之前的位置 
+						distanceTop; // dom元素距离顶部的距离
+					
+					self.$elm.prepend("<div class='pullDown-refreash'>下拉加载</div>");
+						
+					//滚动获取当前隐藏区域距离顶部距离
+					$(document).scroll(function(){
+						distanceTop = self.$elm.get(0).getBoundingClientRect().top;
+					});
+					//触摸开始
+					self.$elm.bind('touchstart',function(e){	
+						currentTop = self.$elm.css('-webkit-transform').split(',')[5].split(')')[0];
+						touchTop = e.originalEvent.touches[0].pageY;
+						
+					});
+					//移动
+					self.$elm.bind('touchmove',function(e){
+						var _top = e.originalEvent.touches[0].pageY;
+						var _diff = _top - touchTop;
+						
+						// 判断当前元素距离顶部是否为0
+						if(distanceTop<self.initTop){
+							return;
+						}
+						//拖动距离为差值的三分之一
+						if(_diff>0){
+							diff = _diff/3 + (currentTop-0);
+						}
+						//判断是否全部展示出来
+						if(diff>0){
+							self.distanceReach = true;
+							self.$elm.find('.pullDown-refreash').text('松开加载');
+						}
+						self.$elm.css('-webkit-transform','translateY('+diff+'px)');
+						
+					});
+					//触摸抬起
+					self.$elm.bind('touchend',function(e){
+						self.$elm.find('.pullDown-refreash').text('加载中');
+						self.$elm.find('.pullDown-refreash').prepend('<div class="pullDown-loading"></div>');
+						if(self.distanceReach){
+							self.$elm.css('-webkit-transform','translateY(0px)');
+							self.fn(close);
+						}else{
+							self.$elm.css('-webkit-transform','translateY('+self.initTop+'px)');
+						}
+						
+					});
+					
+					//关闭
+					function close() {
+						self.distanceReach = false;
+						self.$elm.find('.pullDown-refreash').html('');
+						self.$elm.find('.pullDown-refreash').text('下拉加载');
+						self.$elm.css('-webkit-transform','translateY('+self.initTop+'px)');
+					}
+				}
+			}
+			
+			$.fn.pullDownRefreash = function(options){
+				new PullDownRefreash(this,options);
+			}
+		})(document,jQuery)
+		
+		
+		
+		$('.hiddens').pullDownRefreash(function(close){
+			console.log(2)
+			setTimeout(function(){
+				close();
+			},2000)
+		});
+	</script>
+</html>

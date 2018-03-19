@@ -7,7 +7,7 @@ import CateLog from '../containers/Catelog/catelog';
 import Home from '../containers/Home/home';
 //import Chapter from './containers/Chapter/chapter';
 //import User from './containers/User/user';
-import NotFound from '../containers/404';
+//import NotFound from '../containers/404';
 
 class RouterMap extends React.Component {
 	render() {
