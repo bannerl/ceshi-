@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,initial-scale=1">
+  <title>sdsdf</title>
+  <style>
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.btn {
+  		
+  		margin-top: 50px;
+  	}
+  	.img-container {
+  		width: 80%;
+  	}
+  	.cropper-container{
+  		position: fixed !important;
+  		height: 100% !important;
+  		bottom: 0;
+  		left: 0;
+  		width: 100%;
+  		top: 50px;
+  		background: #000000 !important;
+  	}
+  	.cropper-line {
+  		background: transparent !important;
+  	}
+  	.cropper-point {
+  		background: transparent !important;
+  	}
+  	.cropper-dashed {
+  		border: none !important;
+  	}
+  	.cropper-view-box {
+  		display: none !important;
+  	}
+  	.cropper-face, .cropper-line, .cropper-point{
+  		display: none !important;
+  	}
+  	.cropper-crop-box {
+  		opacity: 0 !important;
+  	}
+  	.cropper-modal {
+  			opacity: 0 !important;
+  	}
+  	.header {
+  		display: flex;
+  		padding: 10px 14px;
+  	}
+  	.header div {
+  		flex: 1;
+  	}
+  	.header .btns{
+  		text-align: right;
+  		font-size: 16px;
+  		color: #1296db;
+  	}
+  	#preview {
+  		position: fixed;
+  		z-index: 100;
+  	}
+  </style>
+  <link rel="stylesheet" href="css/cropper.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div class="header">
+		<div>返回</div>
+		<div class="btns">使用</div>
+	</div>
+		<div class="img-container">
+      <img id="image" src="images/p.jpg" alt="Picture">
+    </div>
+		<div class="btn" onclick="doa()">dfsdfs</div>
+		<img id="preview" />
+  <!-- Scripts -->
+  <script src="js/jquery-3.1.0.js"></script>
+  <script src="js/cropper.js"></script>
+  <script src="js/new_file.js?a=2"></script>
+</body>
+</html>
