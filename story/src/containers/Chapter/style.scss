@@ -1,0 +1,19 @@
+.chapter-wrapper {
+    padding: .14rem;
+    background: #fff;
+    .chapter-item {
+        .title {
+           font-size: .13rem;
+           color: #888; 
+        }
+        .content {
+            font-size: .15rem;
+            color: #333;
+            font-family: "微软雅黑";
+            line-height: .26rem;
+        }
+        br {
+            height: 1px;
+        }
+    }
+}
