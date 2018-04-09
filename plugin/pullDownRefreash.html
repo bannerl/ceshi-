@@ -24,6 +24,7 @@
 				color: #444;
 				line-height: 4rem;
 				text-align: center;
+				transition: all .2s;
 			}
 			
 			.container {
@@ -67,7 +68,7 @@
 	<body>
 		<div class="wrapper">
 			<div class="container">内容</div>
-			<div class="container">内容</div>
+			<div class="container" onclick="unbindDown()">内容</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery.min.js" ></script>
@@ -172,5 +173,11 @@
 				close();
 			},2000)
 		});
+		//卸载下拉事件
+		function unbindDown(){
+			console.log(2342)
+			$('.wrapper').unbind('touchmove');
+		}
+		
 	</script>
 </html>
