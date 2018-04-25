@@ -5,7 +5,7 @@
 	.mint-tabbar .mint-tab-item {
 		.iconfont{
 			font-size: 23px;
-			color: #26A2FF;
+			color: $g_blue;
 		}
 		&.is-selected {
 			color: #888;
