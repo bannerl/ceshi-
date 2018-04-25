@@ -1,0 +1,35 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+import routes from '@/router/router'
+import store from '@/store/index'
+//import 'lib-flexible/flexible'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.min.css'
+import '@/common/style/_mixin.scss'
+import '@/common/style/mintReset.scss'
+import './config/rem'
+//import '@/common/js/vue-touch.js'
+//import '@/common/js/directive.js'
+
+import App from './App'
+
+Vue.config.productionTip = false
+
+Vue.use(Router)
+//Vue.use(Resource)
+Vue.use(MintUI)
+
+const router = new Router({
+ 	routes,
+  'linkActiveClass':'active'
+})
+
+new Vue({
+  router,
+  store,
+  created:function(){
+  	
+  },
+}).$mount('#app')
+
