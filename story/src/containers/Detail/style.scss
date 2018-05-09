@@ -1,0 +1,44 @@
+.detail-wrapper {
+    .title {
+        padding: .26rem ;
+        background: #fff;
+//      text-align: center;
+        font-size: .18rem;
+    }
+    .cate {
+        padding: .14rem;
+        margin-top: .15rem;
+        color: #777;
+        font-size: .15rem;
+//      background: #1296db;
+    }
+    .list-container {
+//      margin-top: .14rem;
+//      padding: .14rem;
+        background: #fff;
+    }
+    dd { 
+        padding: .14rem;
+        position: relative;
+        color: #333;
+        font-family:"微软雅黑";  
+        &:after{
+            position: absolute;
+            display: block;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            font-size: 0;
+            border-bottom: 1px solid #ddd;
+            transform: scaleY(.5);
+            content: '.';
+             @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3){
+                transform: scaleY(.3);
+            }
+        } 
+        &:active {
+            background: #eee;
+            color: #777;
+        }   
+    }
+}

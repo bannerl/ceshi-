@@ -5,9 +5,9 @@ import Index from '../containers/index';
 import Search from '../containers/Search/search';
 import CateLog from '../containers/Catelog/catelog';
 import Home from '../containers/Home/home';
-//import Chapter from './containers/Chapter/chapter';
-//import User from './containers/User/user';
-//import NotFound from '../containers/404';
+import Detail from '../containers/Detail/detail';
+import Chapter from '../containers/Chapter/chapter';
+import NotFound from '../containers/404';
 
 class RouterMap extends React.Component {
 	render() {
@@ -16,7 +16,9 @@ class RouterMap extends React.Component {
 				<Route path="/" component={Index}>
 					<IndexRoute component={Home} />
 					<Route path="/search" component={Search} />
-					<Route path="/catelog" component={CateLog}></Route>
+					<Route path="/detail" component={Detail}></Route>
+					<Route path="/chapter" component={Chapter}></Route>
+					
 					<Route path="*" component={NotFound}></Route>
 				</Route>
 			</Router>
